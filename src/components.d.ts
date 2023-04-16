@@ -22,11 +22,21 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface WcContainer {
+    }
     interface WcInput {
         "disabled": boolean;
         "label": string;
         "type": InputType;
     }
+    interface WcSelect {
+        "defaultValue": string;
+        "options": string[];
+    }
+}
+export interface WcSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLWcSelectElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -35,15 +45,29 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLWcContainerElement extends Components.WcContainer, HTMLStencilElement {
+    }
+    var HTMLWcContainerElement: {
+        prototype: HTMLWcContainerElement;
+        new (): HTMLWcContainerElement;
+    };
     interface HTMLWcInputElement extends Components.WcInput, HTMLStencilElement {
     }
     var HTMLWcInputElement: {
         prototype: HTMLWcInputElement;
         new (): HTMLWcInputElement;
     };
+    interface HTMLWcSelectElement extends Components.WcSelect, HTMLStencilElement {
+    }
+    var HTMLWcSelectElement: {
+        prototype: HTMLWcSelectElement;
+        new (): HTMLWcSelectElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "wc-container": HTMLWcContainerElement;
         "wc-input": HTMLWcInputElement;
+        "wc-select": HTMLWcSelectElement;
     }
 }
 declare namespace LocalJSX {
@@ -61,14 +85,23 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface WcContainer {
+    }
     interface WcInput {
         "disabled"?: boolean;
         "label"?: string;
         "type"?: InputType;
     }
+    interface WcSelect {
+        "defaultValue"?: string;
+        "onMySelectChange"?: (event: WcSelectCustomEvent<string>) => void;
+        "options"?: string[];
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "wc-container": WcContainer;
         "wc-input": WcInput;
+        "wc-select": WcSelect;
     }
 }
 export { LocalJSX as JSX };
@@ -76,7 +109,9 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "wc-container": LocalJSX.WcContainer & JSXBase.HTMLAttributes<HTMLWcContainerElement>;
             "wc-input": LocalJSX.WcInput & JSXBase.HTMLAttributes<HTMLWcInputElement>;
+            "wc-select": LocalJSX.WcSelect & JSXBase.HTMLAttributes<HTMLWcSelectElement>;
         }
     }
 }

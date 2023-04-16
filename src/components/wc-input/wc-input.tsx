@@ -3,7 +3,7 @@ import { InputType } from '../../types/input.types';
 
 @Component({
   tag: 'wc-input',
-  styleUrl: 'wc-input.css',
+  styleUrl: 'wc-input.scss',
   shadow: true,
 })
 export class WcInput {
