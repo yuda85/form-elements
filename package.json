@@ -23,10 +23,12 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "g": "stencil generate"
   },
   "dependencies": {
-    "@stencil/core": "^3.0.0"
+    "@stencil/core": "^3.0.0",
+    "axios": "^1.4.0",
+    "chart.js": "^4.3.0"
   },
   "devDependencies": {
     "@stencil/sass": "^3.0.1",

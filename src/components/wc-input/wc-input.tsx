@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
 import { InputType } from '../../types/input.types';
 
 @Component({
@@ -11,11 +11,17 @@ export class WcInput {
   @Prop() disabled: boolean = false;
   @Prop() label: string = 'My Label';
 
+  @Event({ bubbles: true }) inputChange: EventEmitter<{ [label: string]: any }>;
+
+  public handleInputChange(ev) {
+    this.inputChange.emit({ [this.label]: ev.target.value });
+  }
+
   render() {
     return (
       <div class="input">
         <label>{this.label}</label>
-        <input name={this.label} type={this.type} disabled={this.disabled} />
+        <input onInput={e => this.handleInputChange(e)} name={this.label} type={this.type} disabled={this.disabled} />
       </div>
     );
   }

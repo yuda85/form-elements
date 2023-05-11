@@ -5,7 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { IFormData } from "./types/form-data.interface";
 import { InputType } from "./types/input.types";
+export { IFormData } from "./types/form-data.interface";
 export { InputType } from "./types/input.types";
 export namespace Components {
     interface MyComponent {
@@ -22,7 +24,13 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface WcCheckbox {
+        "checked": boolean;
+    }
     interface WcContainer {
+    }
+    interface WcForm {
+        "form": IFormData;
     }
     interface WcInput {
         "disabled": boolean;
@@ -33,6 +41,17 @@ export namespace Components {
         "defaultValue": string;
         "options": string[];
     }
+    interface WcStocks {
+        "symbol": string;
+    }
+}
+export interface WcCheckboxCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLWcCheckboxElement;
+}
+export interface WcInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLWcInputElement;
 }
 export interface WcSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -45,11 +64,23 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLWcCheckboxElement extends Components.WcCheckbox, HTMLStencilElement {
+    }
+    var HTMLWcCheckboxElement: {
+        prototype: HTMLWcCheckboxElement;
+        new (): HTMLWcCheckboxElement;
+    };
     interface HTMLWcContainerElement extends Components.WcContainer, HTMLStencilElement {
     }
     var HTMLWcContainerElement: {
         prototype: HTMLWcContainerElement;
         new (): HTMLWcContainerElement;
+    };
+    interface HTMLWcFormElement extends Components.WcForm, HTMLStencilElement {
+    }
+    var HTMLWcFormElement: {
+        prototype: HTMLWcFormElement;
+        new (): HTMLWcFormElement;
     };
     interface HTMLWcInputElement extends Components.WcInput, HTMLStencilElement {
     }
@@ -63,11 +94,20 @@ declare global {
         prototype: HTMLWcSelectElement;
         new (): HTMLWcSelectElement;
     };
+    interface HTMLWcStocksElement extends Components.WcStocks, HTMLStencilElement {
+    }
+    var HTMLWcStocksElement: {
+        prototype: HTMLWcStocksElement;
+        new (): HTMLWcStocksElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "wc-checkbox": HTMLWcCheckboxElement;
         "wc-container": HTMLWcContainerElement;
+        "wc-form": HTMLWcFormElement;
         "wc-input": HTMLWcInputElement;
         "wc-select": HTMLWcSelectElement;
+        "wc-stocks": HTMLWcStocksElement;
     }
 }
 declare namespace LocalJSX {
@@ -85,11 +125,19 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface WcCheckbox {
+        "checked"?: boolean;
+        "onCheckboxChange"?: (event: WcCheckboxCustomEvent<boolean>) => void;
+    }
     interface WcContainer {
+    }
+    interface WcForm {
+        "form"?: IFormData;
     }
     interface WcInput {
         "disabled"?: boolean;
         "label"?: string;
+        "onInputChange"?: (event: WcInputCustomEvent<{ [label: string]: any }>) => void;
         "type"?: InputType;
     }
     interface WcSelect {
@@ -97,11 +145,17 @@ declare namespace LocalJSX {
         "onMySelectChange"?: (event: WcSelectCustomEvent<string>) => void;
         "options"?: string[];
     }
+    interface WcStocks {
+        "symbol"?: string;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "wc-checkbox": WcCheckbox;
         "wc-container": WcContainer;
+        "wc-form": WcForm;
         "wc-input": WcInput;
         "wc-select": WcSelect;
+        "wc-stocks": WcStocks;
     }
 }
 export { LocalJSX as JSX };
@@ -109,9 +163,12 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "wc-checkbox": LocalJSX.WcCheckbox & JSXBase.HTMLAttributes<HTMLWcCheckboxElement>;
             "wc-container": LocalJSX.WcContainer & JSXBase.HTMLAttributes<HTMLWcContainerElement>;
+            "wc-form": LocalJSX.WcForm & JSXBase.HTMLAttributes<HTMLWcFormElement>;
             "wc-input": LocalJSX.WcInput & JSXBase.HTMLAttributes<HTMLWcInputElement>;
             "wc-select": LocalJSX.WcSelect & JSXBase.HTMLAttributes<HTMLWcSelectElement>;
+            "wc-stocks": LocalJSX.WcStocks & JSXBase.HTMLAttributes<HTMLWcStocksElement>;
         }
     }
 }

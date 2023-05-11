@@ -10,7 +10,8 @@ export class WcSelect {
   @Prop() defaultValue: string = '';
   @State() value: string = this.defaultValue;
   @State() isOpen: boolean = false;
-  @Event() mySelectChange: EventEmitter<string>;
+
+  @Event({ bubbles: true }) mySelectChange: EventEmitter<string>;
 
   componentWillLoad() {
     this.value = this.defaultValue;
