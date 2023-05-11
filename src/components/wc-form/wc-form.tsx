@@ -1,4 +1,4 @@
-import { Component, Host, Listen, Prop, h } from '@stencil/core';
+import { Component, Listen, Prop, h } from '@stencil/core';
 import { IFormData } from '../../types/form-data.interface';
 
 @Component({

@@ -7,7 +7,7 @@ import { Component, Host, h } from '@stencil/core';
 })
 export class WcContainer {
   public checkBoxChange(ev: CustomEvent<boolean>): void {
-    // console.log('Is Checkbox Checked??? ', ev.detail);
+    console.log('Is Checkbox Checked??? ', ev.detail);
   }
 
   render() {
